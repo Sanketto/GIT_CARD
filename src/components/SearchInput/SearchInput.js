@@ -5,17 +5,16 @@ import axios from "axios";
 export default function SearchInput({setUserData, setError}){
     const [input, setInput] = useState("");
 
-    const getUserData = (e)=>{
+    const getUserData = async(e)=>{
         e.preventDefault();
-        axios.get(`https://api.github.com/users/${input}`)
+        await axios.get(`https://api.github.com/users/${input}`)
         .then(res=>{
-            console.log(res);
             setUserData(res.data);
             setError("");
             setInput("")
         })
         .catch(err=>{
-            setError(err.message);
+            setError(err["response"].status);
             setInput("")
         })
     }
@@ -31,6 +30,7 @@ export default function SearchInput({setUserData, setError}){
                     <input id="name" type="text"
                         value={input}
                         onChange={setInputData}
+                        required
                     />
                 </div>
                 <div className="btn-submit">
