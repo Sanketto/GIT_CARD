@@ -15,7 +15,8 @@ export default function SearchInput({setUserData, setError}){
         })
         .catch(err=>{
             setError(err["response"].status);
-            setInput("")
+            setInput("");
+            setUserData({})
         })
     }
 
